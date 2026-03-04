@@ -1,0 +1,434 @@
+/* =============================================================
+   COMPONENTS — LumeProse
+   Navigation · Boutons · Pills · Boxes · Tags · Toggle thème
+   ============================================================= */
+
+/* ── Header ──────────────────────────────────────────────────── */
+.site-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-8) 0 var(--space-6);
+  text-align: center;
+}
+
+.site-header h1 {
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+}
+
+.site-header .bio {
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-md);
+  max-width: 55ch;
+}
+
+/* Logo gradient (préservé du design original) */
+.logo-header {
+  line-height: 1;
+  display: inline-block;
+  background-image: linear-gradient(135deg, #ff5555, #ff79c6, #bd93f9);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 2px solid transparent;
+  background-origin: border-box;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  background-size: 200%;
+  animation: gradient-shift 8s ease infinite;
+  font-weight: 700;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+/* ── Navigation ──────────────────────────────────────────────── */
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+}
+
+.site-nav a {
+  color: var(--color-text-subtle);
+  text-decoration: none;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast),
+              background var(--transition-fast);
+  font-weight: 500;
+}
+
+.site-nav a:hover {
+  color: var(--color-text);
+  background: var(--color-bg-subtle);
+  text-decoration: none;
+}
+
+.site-nav a:visited {
+  color: var(--color-text-subtle);
+}
+
+.site-nav a:visited:hover {
+  color: var(--color-text);
+}
+
+.site-nav .nav-sep {
+  color: var(--color-border);
+  user-select: none;
+}
+
+/* ── Toggle Dark / Light (P5) ────────────────────────────────── */
+.theme-toggle {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--z-nav);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+
+  background: var(--color-surface-raised);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+
+  color: var(--color-text-subtle);
+  font-size: 1rem;
+  line-height: 1;
+
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  background: var(--color-bg-subtle);
+  border-color: var(--color-border-muted);
+  box-shadow: var(--shadow-lg);
+  transform: scale(1.05);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Icônes selon le thème actif */
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .icon-sun  { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .icon-moon { display: none; }
+}
+
+/* ── Liste des posts (blog.page.tsx) ─────────────────────────── */
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.post {
+  display: var(--display, flex);
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: var(--border-width) solid var(--color-border-subtle);
+  transition: background var(--transition-fast);
+}
+
+.post:first-child {
+  border-top: var(--border-width) solid var(--color-border-subtle);
+}
+
+.post:hover {
+  background: var(--color-bg-subtle);
+  margin: 0 calc(-1 * var(--space-3));
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+  border-radius: var(--radius-md);
+  border-color: transparent;
+}
+
+.post a {
+  color: var(--color-text);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.post a:hover {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.post a:visited {
+  color: var(--color-text-subtle);
+}
+
+.clear-filter {
+  display: none;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  line-height: var(--leading-normal);
+  color: var(--color-btn-text);
+  background: var(--color-btn-bg);
+  border: var(--border-width) solid var(--color-btn-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+.btn:hover {
+  background: var(--color-btn-hover-bg);
+  border-color: var(--color-border-muted);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+}
+
+.btn:active {
+  background: var(--color-btn-active-bg);
+}
+
+.btn-link,
+.btn-link:visited {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-link);
+  background: transparent;
+  border: var(--border-width) solid var(--color-link);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.btn-link:hover,
+.btn-link:visited:hover {
+  background: var(--color-accent-subtle);
+  border-color: var(--color-link-hover);
+  color: var(--color-link-hover);
+  text-decoration: none;
+}
+
+.btn-link-alt,
+.btn-link-alt:visited {
+  border-color: var(--color-border);
+  color: var(--color-text-subtle);
+}
+
+/* ── Boxes ───────────────────────────────────────────────────── */
+.box {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg-subtle);
+}
+
+.box-sm {
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-subtle);
+}
+
+.box-alert {
+  border: var(--border-width) solid var(--color-alert-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-alert-bg);
+  color: var(--color-alert-text);
+}
+
+.box-sm-alert {
+  border: var(--border-width) solid var(--color-alert-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-alert-bg);
+  color: var(--color-alert-text);
+}
+
+/* ── Pills / Badges ──────────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  font-family: var(--font-mono);
+  padding: 0.2em 0.65em;
+  border-radius: var(--radius-full);
+  border: var(--border-width) solid var(--color-tag-border);
+  background: var(--color-tag-bg);
+  color: var(--color-tag-text);
+  text-decoration: none;
+  transition: background var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.pill a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pill a:hover {
+  text-decoration: none;
+}
+
+.pill.tag:hover {
+  background: var(--color-accent-subtle);
+  border-color: var(--color-link-hover);
+  color: var(--color-link-hover);
+}
+
+.pill-alert {
+  border-color: var(--color-alert-border);
+  background: var(--color-alert-bg);
+  color: var(--color-alert-text);
+}
+
+.pill-info {
+  border-color: var(--color-link-visited);
+  background: transparent;
+  color: var(--color-link-visited);
+}
+
+/* ── Links utilities ─────────────────────────────────────────── */
+.link-grey,
+.link-grey:visited {
+  color: var(--color-text-subtle);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.link-grey:hover {
+  color: var(--color-text);
+}
+
+.link-alt,
+.link-alt:visited {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.link-alt:hover {
+  text-decoration: underline;
+}
+
+.link-alt-adj,
+.link-alt-adj:visited {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.link-alt-adj:hover {
+  text-decoration: underline;
+}
+
+.link-alt-hover,
+.link-alt-hover:visited {
+  color: var(--color-link-hover);
+  text-decoration: none;
+}
+
+.link-alt-hover:hover {
+  text-decoration: underline;
+}
+
+/* ── Bordure / helpers ───────────────────────────────────────── */
+.border {
+  border: var(--border-width) solid var(--color-border);
+}
+
+.text-hdr {
+  color: var(--color-link);
+}
+
+.text-underline {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.text-underline-hdr {
+  border-bottom: 2px solid var(--color-link);
+  padding-bottom: 2px;
+}
+
+/* ── Footer du site ──────────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  margin: var(--space-8) 0 var(--space-12);
+  padding-top: var(--space-6);
+  border-top: var(--border-width) solid var(--color-border-subtle);
+}
+
+.site-footer a {
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.site-footer a:hover {
+  color: var(--color-text-subtle);
+  text-decoration: underline;
+}
+
+/* ── Responsive components ───────────────────────────────────── */
+@media only screen and (max-width: 37.5em) {
+  .theme-toggle {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.9rem;
+  }
+
+  .site-nav {
+    gap: 0;
+  }
+
+  .site-nav a {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+}

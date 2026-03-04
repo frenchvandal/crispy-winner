@@ -23,7 +23,12 @@
   "fmt": {
     "exclude": [
       "./src/public/smol.css",
-      "./src/public/smol-v2.css"
+      "./src/public/smol-v2.css",
+      "./src/public/tokens.css",
+      "./src/public/base.css",
+      "./src/public/components.css",
+      "./src/public/prose.css",
+      "./src/public/highlight.css"
     ]
   }
 }

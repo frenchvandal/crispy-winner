@@ -6,61 +6,108 @@ interface Author {
 }
 
 export default (
-  { content, title, date, tags, description, footer, update, icon, author }:
+  {
+    content,
+    title,
+    date,
+    tags,
+    description,
+    footer,
+    update,
+    icon,
+    author,
+    url,
+  }:
     & Lume.Data
     & { author: Author[] },
   helpers: Lume.Helpers,
-) => (
-  <Base title={title || "title"} isPost={true} icon={icon}>
-    <header>
-      <h1 class="text-2xl font-bold">{title}</h1>
-      <p class="font-bold m-0">
-        <time
-          datetime={date.toISOString()}
-        >
-          {helpers.date(date)}
-        </time>
-        <span>{" "}&middot;{" "}</span>
-        {author.map((author) => (
-          <a
-            href={author.link || "/"}
-            target={author.link?.includes("http") ? "_blank" : "_self"}
-          >
-            {author.name || "anonymous"}
-          </a>
-        )).flatMap((v, i) => i === author.length - 1 ? [v] : [v, " , "])}
-      </p>
-      {description && description !== "" && (
-        <blockquote>{description}</blockquote>
-      )}
-      <hr />
-    </header>
-    <main>
-      <article class="md">
-        {{ __html: content }}
+) => {
+  // Calcul du temps de lecture (P5)
+  const wordCount = (content as string || "")
+    .replace(/<[^>]+>/g, "")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  const readingMin = Math.max(1, Math.ceil(wordCount / 200));
 
-        <div class="tags">
-          {tags.map((tag) => (
-            <code class="pill tag">
-              <a href={`/blog/#tag-${tag}`}>{`#${tag}`}</a>
-            </code>
-          ))}
-        </div>
+  return (
+    <Base
+      title={title || "Sans titre"}
+      isPost={true}
+      icon={icon}
+      description={description}
+      url={url}
+      date={date}
+    >
+      {/* Barre de progression de lecture (P5 — CSS only) */}
+      <div class="reading-progress" aria-hidden="true" />
 
-        <div id="last-updated" class="text-sm">
-          last updated:{" "}
-          <time datetime={new Date(update || date).toISOString()}>
-            {helpers.date(update || date)}
+      <header class="post-header">
+        <h1>{title}</h1>
+
+        <div class="post-meta">
+          <time datetime={date.toISOString()}>
+            {helpers.date(date)}
           </time>
+          <span aria-hidden="true">·</span>
+          {author.map((a, i) => (
+            <>
+              <a
+                href={a.link || "/"}
+                target={a.link?.includes("http") ? "_blank" : "_self"}
+                rel={a.link?.includes("http") ? "noopener noreferrer" : undefined}
+              >
+                {a.name || "anonyme"}
+              </a>
+              {i < author.length - 1 && <span aria-hidden="true">,</span>}
+            </>
+          ))}
+          <span aria-hidden="true">·</span>
+          <span
+            class="reading-time"
+            aria-label={`${readingMin} minute${readingMin > 1 ? "s" : ""} de lecture`}
+          >
+            {readingMin} min
+          </span>
         </div>
 
-        {footer && footer !== "" && (
-          <div id="post-footer">
-            <hr />
-            {{ __html: helpers.md(footer) }}
-          </div>
+        {description && description !== "" && (
+          <blockquote class="post-description">
+            {description}
+          </blockquote>
         )}
-      </article>
-    </main>
-  </Base>
-);
+
+        <hr />
+      </header>
+
+      <main aria-label="Contenu de l'article">
+        <article class="md">
+          {{ __html: content }}
+
+          <div class="tags" aria-label="Tags de l'article">
+            {tags.map((tag) => (
+              <code class="pill tag">
+                <a href={`/blog/#tag-${tag}`} aria-label={`Articles tagués ${tag}`}>
+                  {`#${tag}`}
+                </a>
+              </code>
+            ))}
+          </div>
+
+          <div id="last-updated">
+            Mis à jour le{" "}
+            <time datetime={new Date(update || date).toISOString()}>
+              {helpers.date(update || date)}
+            </time>
+          </div>
+
+          {footer && footer !== "" && (
+            <div id="post-footer">
+              <hr />
+              {{ __html: helpers.md(footer) }}
+            </div>
+          )}
+        </article>
+      </main>
+    </Base>
+  );
+};
