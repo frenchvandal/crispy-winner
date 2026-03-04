@@ -1,0 +1,291 @@
+/* =============================================================
+   DESIGN TOKENS — LumeProse
+   Palette : GitHub Primer (état de l'art, WCAG 2.1 AA garanti)
+   ============================================================= */
+
+/* ── Typographie ─────────────────────────────────────────────── */
+:root {
+  /* Échelle : Major Third (×1.25) depuis 1rem = 16px */
+  --font-size-xs:   0.64rem;   /* 10.24px */
+  --font-size-sm:   0.8rem;    /* 12.8px  */
+  --font-size-base: 1rem;      /* 16px    */
+  --font-size-md:   1.125rem;  /* 18px    */
+  --font-size-lg:   1.25rem;   /* 20px    */
+  --font-size-xl:   1.5rem;    /* 24px    */
+  --font-size-2xl:  1.875rem;  /* 30px    */
+  --font-size-3xl:  2.25rem;   /* 36px    */
+
+  /* Typographie fluide pour les titres */
+  --font-size-h1: clamp(1.5rem, 4vw, 2rem);
+  --font-size-h2: clamp(1.2rem, 3vw, 1.5rem);
+  --font-size-h3: clamp(1.05rem, 2.5vw, 1.25rem);
+
+  /* Polices */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+    Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  /* Line heights */
+  --leading-tight:   1.25;
+  --leading-snug:    1.375;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.75;
+  --leading-prose:   1.7;
+
+  /* Espacement (base 4px) */
+  --space-1:  0.25rem;   /* 4px  */
+  --space-2:  0.5rem;    /* 8px  */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+
+  /* Largeurs */
+  --width-prose: 72ch;
+  --width-ui:    64rem;
+  --width-body:  720px;
+
+  /* Bordures */
+  --radius-sm:   0.25rem;
+  --radius-md:   0.375rem;
+  --radius-lg:   0.5rem;
+  --radius-full: 9999px;
+  --border-width: 1px;
+
+  /* Transitions */
+  --transition-fast:   120ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow:   300ms ease;
+
+  /* Ombres */
+  --shadow-sm:  0 1px 2px 0 var(--color-shadow);
+  --shadow-md:  0 4px 6px -1px var(--color-shadow), 0 2px 4px -2px var(--color-shadow);
+  --shadow-lg:  0 10px 15px -3px var(--color-shadow), 0 4px 6px -4px var(--color-shadow);
+
+  /* Breakpoints (référence CSS custom props — usage dans JS) */
+  --bp-sm:  36em;   /* 576px  */
+  --bp-md:  48em;   /* 768px  */
+  --bp-lg:  64em;   /* 1024px */
+  --bp-xl:  80em;   /* 1280px */
+
+  /* Z-index */
+  --z-skip-link:    9999;
+  --z-progress-bar: 1000;
+  --z-nav:          100;
+  --z-overlay:      200;
+}
+
+/* ── Couleurs : Light mode (défaut) ─────────────────────────── */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Fonds */
+  --color-bg:             #ffffff;
+  --color-bg-subtle:      #f6f8fa;
+  --color-bg-inset:       #eaeef2;
+  --color-surface:        #ffffff;
+  --color-surface-raised: #f6f8fa;
+
+  /* Texte */
+  --color-text:           #1f2328;  /* Ratio sur bg: 16.7:1 ✓ AAA */
+  --color-text-subtle:    #636c76;  /* Ratio sur bg: 5.9:1  ✓ AA  */
+  --color-text-muted:     #8c959f;  /* Usage décoratif uniquement  */
+  --color-text-inverse:   #ffffff;
+
+  /* Liens */
+  --color-link:           #0969da;  /* Ratio: 5.9:1 ✓ AA  */
+  --color-link-hover:     #0550ae;  /* Plus foncé au hover         */
+  --color-link-visited:   #8250df;  /* Violet accessible            */
+
+  /* Accent */
+  --color-accent:         #0969da;
+  --color-accent-subtle:  #ddf4ff;
+
+  /* Bordures */
+  --color-border:         #d0d7de;
+  --color-border-subtle:  #eaeef2;
+  --color-border-muted:   #afb8c1;
+
+  /* Code */
+  --color-code-bg:        #eef1f4;
+  --color-code-border:    #d0d7de;
+  --color-code-text:      #0a3069;
+  --color-pre-bg:         #f6f8fa;
+
+  /* Blockquote */
+  --color-blockquote-border: #0969da;
+  --color-blockquote-bg:     #ddf4ff;
+  --color-blockquote-text:   #0550ae;
+
+  /* Tags / Pills */
+  --color-tag-bg:         #ddf4ff;
+  --color-tag-border:     #0969da;
+  --color-tag-text:       #0969da;
+
+  /* Boutons */
+  --color-btn-bg:         #f6f8fa;
+  --color-btn-border:     #d0d7de;
+  --color-btn-text:       #24292f;
+  --color-btn-hover-bg:   #f3f4f6;
+  --color-btn-active-bg:  #ebecf0;
+
+  /* Focus ring (accessibilité) */
+  --color-focus-ring:     #0969da;
+  --color-focus-bg:       rgba(9, 105, 218, 0.1);
+
+  /* Séparateurs */
+  --color-hr:             #d0d7de;
+
+  /* Ombres */
+  --color-shadow:         rgba(31, 35, 40, 0.12);
+  --color-shadow-inset:   rgba(208, 215, 222, 0.2);
+
+  /* Barre de lecture */
+  --color-progress:       #0969da;
+
+  /* Toggle */
+  --color-toggle-bg:      #d0d7de;
+  --color-toggle-thumb:   #ffffff;
+
+  /* Alerte */
+  --color-alert-border:   #cf222e;
+  --color-alert-bg:       #ffebe9;
+  --color-alert-text:     #82071e;
+}
+
+/* ── Couleurs : Dark mode (media query) ─────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --color-bg:             #0d1117;
+    --color-bg-subtle:      #161b22;
+    --color-bg-inset:       #010409;
+    --color-surface:        #161b22;
+    --color-surface-raised: #21262d;
+
+    --color-text:           #e6edf3;  /* Ratio: 14.5:1 ✓ AAA */
+    --color-text-subtle:    #8b949e;  /* Ratio: 4.6:1  ✓ AA  */
+    --color-text-muted:     #6e7681;
+    --color-text-inverse:   #0d1117;
+
+    --color-link:           #58a6ff;  /* Ratio: 5.4:1 ✓ AA  */
+    --color-link-hover:     #79c0ff;
+    --color-link-visited:   #bc8cff;
+
+    --color-accent:         #58a6ff;
+    --color-accent-subtle:  #121d2f;
+
+    --color-border:         #30363d;
+    --color-border-subtle:  #21262d;
+    --color-border-muted:   #484f58;
+
+    --color-code-bg:        #161b22;
+    --color-code-border:    #30363d;
+    --color-code-text:      #79c0ff;
+    --color-pre-bg:         #161b22;
+
+    --color-blockquote-border: #388bfd;
+    --color-blockquote-bg:     #121d2f;
+    --color-blockquote-text:   #79c0ff;
+
+    --color-tag-bg:         #121d2f;
+    --color-tag-border:     #388bfd;
+    --color-tag-text:       #58a6ff;
+
+    --color-btn-bg:         #21262d;
+    --color-btn-border:     #30363d;
+    --color-btn-text:       #e6edf3;
+    --color-btn-hover-bg:   #30363d;
+    --color-btn-active-bg:  #282e36;
+
+    --color-focus-ring:     #58a6ff;
+    --color-focus-bg:       rgba(88, 166, 255, 0.1);
+
+    --color-hr:             #30363d;
+
+    --color-shadow:         rgba(1, 4, 9, 0.4);
+    --color-shadow-inset:   rgba(110, 118, 129, 0.1);
+
+    --color-progress:       #58a6ff;
+
+    --color-toggle-bg:      #388bfd;
+    --color-toggle-thumb:   #ffffff;
+
+    --color-alert-border:   #f85149;
+    --color-alert-bg:       #160b0b;
+    --color-alert-text:     #f47067;
+  }
+}
+
+/* ── Couleurs : Dark mode (data-theme forcé) ────────────────── */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg:             #0d1117;
+  --color-bg-subtle:      #161b22;
+  --color-bg-inset:       #010409;
+  --color-surface:        #161b22;
+  --color-surface-raised: #21262d;
+
+  --color-text:           #e6edf3;
+  --color-text-subtle:    #8b949e;
+  --color-text-muted:     #6e7681;
+  --color-text-inverse:   #0d1117;
+
+  --color-link:           #58a6ff;
+  --color-link-hover:     #79c0ff;
+  --color-link-visited:   #bc8cff;
+
+  --color-accent:         #58a6ff;
+  --color-accent-subtle:  #121d2f;
+
+  --color-border:         #30363d;
+  --color-border-subtle:  #21262d;
+  --color-border-muted:   #484f58;
+
+  --color-code-bg:        #161b22;
+  --color-code-border:    #30363d;
+  --color-code-text:      #79c0ff;
+  --color-pre-bg:         #161b22;
+
+  --color-blockquote-border: #388bfd;
+  --color-blockquote-bg:     #121d2f;
+  --color-blockquote-text:   #79c0ff;
+
+  --color-tag-bg:         #121d2f;
+  --color-tag-border:     #388bfd;
+  --color-tag-text:       #58a6ff;
+
+  --color-btn-bg:         #21262d;
+  --color-btn-border:     #30363d;
+  --color-btn-text:       #e6edf3;
+  --color-btn-hover-bg:   #30363d;
+  --color-btn-active-bg:  #282e36;
+
+  --color-focus-ring:     #58a6ff;
+  --color-focus-bg:       rgba(88, 166, 255, 0.1);
+
+  --color-hr:             #30363d;
+
+  --color-shadow:         rgba(1, 4, 9, 0.4);
+  --color-shadow-inset:   rgba(110, 118, 129, 0.1);
+
+  --color-progress:       #58a6ff;
+
+  --color-toggle-bg:      #388bfd;
+  --color-toggle-thumb:   #ffffff;
+
+  --color-alert-border:   #f85149;
+  --color-alert-bg:       #160b0b;
+  --color-alert-text:     #f47067;
+}

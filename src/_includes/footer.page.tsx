@@ -1,7 +1,6 @@
 export default (obj: { children?: never }) => (
   <>
-    <footer>
-      <hr />
+    <footer class="site-footer">
       <a href="https://lume.land" target="_blank" rel="noopener noreferrer">
         Lume
       </a>

@@ -1,0 +1,350 @@
+/* =============================================================
+   PROSE — LumeProse
+   Styles spécifiques aux articles / contenu markdown
+   ============================================================= */
+
+/* ── Barre de progression de lecture (P5 — CSS only) ────────── */
+@supports (animation-timeline: scroll()) {
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--color-progress);
+    transform-origin: left center;
+    transform: scaleX(0);
+    z-index: var(--z-progress-bar);
+    animation: reading-progress linear both;
+    animation-timeline: scroll(root block);
+    border-radius: 0 var(--radius-full) var(--radius-full) 0;
+  }
+
+  @keyframes reading-progress {
+    to { transform: scaleX(1); }
+  }
+}
+
+/* Fallback pour navigateurs sans animation-timeline */
+@supports not (animation-timeline: scroll()) {
+  .reading-progress {
+    display: none;
+  }
+}
+
+/* ── En-tête de post ─────────────────────────────────────────── */
+.post-header {
+  margin-bottom: var(--space-6);
+}
+
+.post-header h1 {
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  margin-bottom: var(--space-3);
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-4);
+}
+
+.post-meta time {
+  font-variant-numeric: tabular-nums;
+}
+
+.post-meta a {
+  color: var(--color-text-subtle);
+  transition: color var(--transition-fast);
+}
+
+.post-meta a:hover {
+  color: var(--color-link);
+}
+
+.post-description {
+  font-size: var(--font-size-md);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-subtle);
+  border-left: 3px solid var(--color-blockquote-border);
+  background: var(--color-blockquote-bg);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-4) 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* Indicateur de temps de lecture */
+.reading-time {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: var(--color-bg-subtle);
+  border: var(--border-width) solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  padding: 0.15em var(--space-2);
+}
+
+.reading-time::before {
+  content: "⏱";
+  font-size: 0.9em;
+}
+
+/* ── Corps de l'article (classe .md) ─────────────────────────── */
+.md {
+  font-size: var(--font-size-md);
+  line-height: var(--leading-prose);
+  color: var(--color-text);
+}
+
+/* Titres avec hiérarchie visuelle claire */
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md h5,
+.md h6 {
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  color: var(--color-text);
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-4);
+}
+
+.md h1 {
+  font-size: var(--font-size-h1);
+  border-bottom: var(--border-width) solid var(--color-border);
+  padding-bottom: var(--space-3);
+}
+
+.md h2 {
+  font-size: var(--font-size-h2);
+  border-bottom: var(--border-width) solid var(--color-border-subtle);
+  padding-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.md h3 {
+  font-size: var(--font-size-h3);
+}
+
+.md h4 {
+  font-size: var(--font-size-md);
+  color: var(--color-text-subtle);
+}
+
+/* Liens dans les titres (ancres) */
+.md h1 a,
+.md h2 a,
+.md h3 a,
+.md h4 a {
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-weight: inherit;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.md h1:hover a,
+.md h2:hover a,
+.md h3:hover a,
+.md h4:hover a {
+  opacity: 1;
+}
+
+/* Paragraphes */
+.md p {
+  margin: var(--space-4) 0;
+}
+
+.md p:first-child {
+  margin-top: 0;
+}
+
+/* Listes */
+.md ul {
+  list-style-type: disc;
+  padding-left: var(--space-6);
+}
+
+.md ol {
+  list-style-type: decimal;
+  padding-left: var(--space-6);
+}
+
+.md li {
+  margin: var(--space-2) 0;
+  padding: 0;
+}
+
+.md li::marker {
+  color: var(--color-text-subtle);
+}
+
+/* Code inline */
+.md code {
+  font-size: 0.875em;
+  background: var(--color-code-bg);
+  border: var(--border-width) solid var(--color-code-border);
+  color: var(--color-code-text);
+  border-radius: var(--radius-sm);
+  padding: 0.15em 0.4em;
+}
+
+/* Ne pas re-styler le code dans les pre */
+.md pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* Titres contenant du code : ne pas transformer */
+.md h1 code,
+.md h2 code,
+.md h3 code,
+.md h4 code {
+  font-size: 0.85em;
+  text-transform: none;
+}
+
+/* Blockquotes dans le corps */
+.md blockquote {
+  border-left: 3px solid var(--color-blockquote-border);
+  background: var(--color-blockquote-bg);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-6) 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.md blockquote p {
+  margin: 0;
+  color: var(--color-blockquote-text);
+}
+
+.md blockquote code {
+  border-color: var(--color-blockquote-border);
+}
+
+/* Tables dans le markdown */
+.md table {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: var(--space-6) 0;
+}
+
+/* Images dans le markdown */
+.md img {
+  border-radius: var(--radius-md);
+  margin: var(--space-6) auto;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Liens dans le prose */
+.md a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-link) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--transition-fast),
+              color var(--transition-fast);
+}
+
+.md a:hover {
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
+}
+
+.md a:visited {
+  color: var(--color-link-visited);
+}
+
+/* Footnotes */
+.footnotes li p {
+  display: inline;
+}
+
+/* ── Tags ────────────────────────────────────────────────────── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--border-width) solid var(--color-border-subtle);
+}
+
+/* ── Métadonnées bas de page ─────────────────────────────────── */
+#last-updated {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+#last-updated::before {
+  content: "✏";
+  font-size: 0.8em;
+}
+
+/* ── Footer de post ──────────────────────────────────────────── */
+#post-footer {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--border-width) solid var(--color-border-subtle);
+  color: var(--color-text-subtle);
+  font-size: var(--font-size-sm);
+}
+
+#post-footer p {
+  margin: var(--space-2) 0;
+}
+
+/* ── Correction : classe invisibility pour le filtrage ────────── */
+.invisibility {
+  display: none;
+}
+
+/* ── Responsive prose ────────────────────────────────────────── */
+@media only screen and (max-width: 48em) {
+  .md {
+    font-size: var(--font-size-base);
+  }
+
+  .md h1 {
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+  }
+
+  .md h2 {
+    font-size: clamp(1.1rem, 4vw, 1.35rem);
+  }
+
+  .post-header h1 {
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+  }
+}
+
+@media only screen and (max-width: 37.5em) {
+  .tags {
+    gap: var(--space-2);
+  }
+
+  .post-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+}
