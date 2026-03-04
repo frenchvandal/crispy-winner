@@ -1,7 +1,7 @@
 /* Theme toggle — LumeProse (anti-FOUC inline, ~15 lignes) */
 (function () {
   const stored = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const prefersDark = globalThis.matchMedia("(prefers-color-scheme: dark)").matches;
   const theme = stored || (prefersDark ? "dark" : "light");
   document.documentElement.setAttribute("data-theme", theme);
 

@@ -32,7 +32,7 @@ export default (
   return (
     <Base
       title={title || "Sans titre"}
-      isPost={true}
+      isPost
       icon={icon}
       description={description}
       url={url}
