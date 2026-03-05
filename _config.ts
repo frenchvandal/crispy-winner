@@ -7,6 +7,7 @@ import slugifyUrls from "lume/plugins/slugify_urls.ts";
 import codeHighlight from "lume/plugins/code_highlight.ts";
 
 import mila from "markdown-it-link-attributes";
+import buildProfiler from "./_plugins/build_profiler.ts";
 
 const site = lume({
   location: new URL("https://fbik.top"),
@@ -17,6 +18,7 @@ const site = lume({
   },
 });
 
+site.use(buildProfiler());
 site.use(jsx());
 site.use(date());
 site.use(sitemap());
